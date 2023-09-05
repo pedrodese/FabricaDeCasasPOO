@@ -55,7 +55,29 @@ public class Controladora {
                     }
                 }
                 case 1 -> {
-                    JOptionPane.showMessageDialog(null, "Movimentar portas ou janelas");
+                    String tipoAbertura = EntradaSaida.solicitaTipoAbertura();
+
+                    ArrayList<Aberturas> listaDeAberturas = new ArrayList<Aberturas>();
+
+                    if(tipoAbertura.equals("porta")){
+                        listaDeAberturas = this.casa.getListaDePortas();
+                    }
+                    else{
+                        listaDeAberturas = this.casa.getListaDeJanelas();
+                    }
+
+                    int posicao = EntradaSaida.solitaAberturaMover(listaDeAberturas);
+                    int novoEstado=0;
+
+                    if(posicao!=1){
+                        novoEstado = EntradaSaida.solicitaEstado(tipoAbertura);
+                        Aberturas abertura = this.casa.retornaAbertura(posicao, tipoAbertura);
+                        this.casa.moverAbertura(abertura, novoEstado);
+                        System.out.println("Novo estado da " + tipoAbertura+": "+abertura.getEstado());
+                    }
+                    else{
+                        EntradaSaida.exibeMsgAbertura();
+                    }
                 }
                 case 2 -> {
                     JOptionPane.showMessageDialog(null, "Ver informações da casa");
