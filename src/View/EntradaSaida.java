@@ -78,5 +78,19 @@ public class EntradaSaida {
     public static void exibeMsgAbertura(){
         JOptionPane.showMessageDialog(null, "Nenhuma abetura será movimentada");
     }
+    public static void exibeInfoCasa(String informacoes){
+        JOptionPane.showMessageDialog(null, informacoes, "Informações da casa",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static int validaConstrucaoCasa(){
+
+        String[] opcoes={"Construir casa","Sair do programa"};
+        JComboBox<String> menu = new JComboBox<String>(opcoes);
+        JOptionPane.showConfirmDialog(null,menu, "Selecione a opção desejada",
+                JOptionPane.OK_CANCEL_OPTION);
+
+        return menu.getSelectedIndex();
+    }
 
 }

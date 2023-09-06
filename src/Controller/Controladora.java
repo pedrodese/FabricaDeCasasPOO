@@ -10,20 +10,37 @@ public class Controladora {
 
     public void exibeMenu(){
         int opcao;
+        int contador = 0;
         do{
-            opcao = EntradaSaida.solicitaOpcao();
+
+
+
+            if( contador == 0){
+               opcao = EntradaSaida.validaConstrucaoCasa();
+
+            }
+            else{
+                opcao = EntradaSaida.solicitaOpcao();
+            }
 
             switch (opcao){
                 case 0 -> {
                     this.casa = new Casa();
                     String descricao = EntradaSaida.solicitaDescricao("casa",0);
                     String cor = EntradaSaida.solicitaCor();
-                    int qtdePortas = EntradaSaida.solicitaQtdeAberturas("portas");
+                    int qtdePortas = 0;
+                    do {
+                         qtdePortas = EntradaSaida.solicitaQtdeAberturas("portas");
+                         if(qtdePortas ==0) {
+                             JOptionPane.showMessageDialog(null, "Informe um valor válido, somente numeros positivos podem ser informado.");
+                         }
+                    } while(qtdePortas <= 0);
+
                     int qtdeJanelas = EntradaSaida.solicitaQtdeAberturas("janelas");
 
                     ArrayList<Aberturas> listaDePortas = new ArrayList<Aberturas>();
 
-                    for(int i=0; i<qtdePortas; i++){
+                    for(int i=0; i < qtdePortas; i++){
                         Porta porta = new Porta();
                         porta.setDescricao(EntradaSaida.solicitaDescricao("porta",(i+1)));
                         porta.setEstado(EntradaSaida.solicitaEstado("porta"));
@@ -53,8 +70,17 @@ public class Controladora {
                         System.out.println("Descrição da janela: "+janela.getDescricao()+"\n");
                         System.out.println("Estado da janela: "+janela.getEstado()+"\n");
                     }
+                    contador++;
                 }
                 case 1 -> {
+
+                    if(contador==0){
+                        EntradaSaida.exibeMsgEncerraPrograma();
+                        System.exit(0);
+                    }
+
+
+
                     String tipoAbertura = EntradaSaida.solicitaTipoAbertura();
 
                     ArrayList<Aberturas> listaDeAberturas = new ArrayList<Aberturas>();
@@ -80,7 +106,8 @@ public class Controladora {
                     }
                 }
                 case 2 -> {
-                    JOptionPane.showMessageDialog(null, "Ver informações da casa");
+                    String informacoes=this.casa.geraInfoCasa();
+                    EntradaSaida.exibeInfoCasa(informacoes);
                 }
 
             }

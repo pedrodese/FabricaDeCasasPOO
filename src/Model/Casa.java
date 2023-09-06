@@ -53,6 +53,40 @@ public class Casa {
     public void moverAbertura(Aberturas abertura, int novoEstado){
         abertura.setEstado(novoEstado);
     }
+    public String geraInfoCasa(){
+        String informacoes = "Descrição: "+this.descricao+"\nCor: "+this.cor+"\nLista de Portas: ";
+
+                for(Aberturas abertura:this.listaDePortas){
+                    int estado = abertura.getEstado();
+                    String estadoPortas = "";
+
+                    if(estado == 0){
+                         estadoPortas = "Fechada";
+                    }
+                    else if (estado == 1) {
+                         estadoPortas = "Aberta";
+                    }
+                    informacoes+= abertura.getDescricao()+"\n Estado: "+estadoPortas+"\n";
+                }
+
+                informacoes+="\nLista de Janelas: \n";
+
+                for(Aberturas abertura:this.listaDeJanelas){
+                    int estado = abertura.getEstado();
+                    String estadoJanelas = "";
+
+                    if(estado == 0){
+                        estadoJanelas = "Fechada";
+                    }
+                    else if (estado == 1) {
+                        estadoJanelas = "Aberta";
+                    }
+
+
+                    informacoes+=abertura.getDescricao()+" Estado: " + estadoJanelas +"\n";
+                }
+                return informacoes;
+    }
 
 
 }
